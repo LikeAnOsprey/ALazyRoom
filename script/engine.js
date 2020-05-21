@@ -150,7 +150,13 @@
 				.text(_('hyper.'))
 				.click(Engine.confirmHyperMode)
 				.appendTo(menu);
-
+            $('<span>')
+                .addClass('lazy menuBtn')
+                .text(_('lazy.'))
+                .click(function () {
+                    alert('lazy mode confirmation')
+                })
+                .appendTo(menu);
 			$('<span>')
 				.addClass('menuBtn')
 				.text(_('restart.'))
