@@ -75,7 +75,8 @@
 			debug: false,
 			log: false,
 			dropbox: false,
-			doubleTime: false
+            doubleTime: false,
+            lazyTime: false
 		},
 
 		init: function(options) {
@@ -150,7 +151,11 @@
 				.text(_('hyper.'))
 				.click(Engine.confirmHyperMode)
 				.appendTo(menu);
-
+            $('<span>')
+                .addClass('lazy menuBtn')
+                .text(_('lazy.'))
+                .click(Engine.confirmLazyMode)
+                .appendTo(menu);
 			$('<span>')
 				.addClass('menuBtn')
 				.text(_('restart.'))
@@ -553,6 +558,42 @@
 
 			$SM.set('config.hyperMode', Engine.options.doubleTime, false);
 		},
+
+        confirmLazyMode: function () {
+            if (!Engine.options.lazyTime) {
+                Events.startEvent({
+                    title: _('Go Lazy?'),
+                    scenes: {
+                        start: {
+                            text: [_('turning lazy mode speeds up the game to x10 speed. do you want to do that?')],
+                            buttons: {
+                                'yes': {
+                                    text: _('yes'),
+                                    nextScene: 'end',
+                                    onChoose: Engine.triggerLazyMode
+                                },
+                                'no': {
+                                    text: _('no'),
+                                    nextScene: 'end'
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                Engine.triggerLazyMode();
+            }
+        },
+
+        triggerLazyMode: function () {
+            Engine.options.lazyTime = !Engine.options.lazyTime;
+            if (Engine.options.lazyTime)
+                $('.lazy').text(_('classic.'));
+            else
+                $('.lazy').text(_('lazy.'));
+
+            $SM.set('config.lazyMode', Engine.options.lazyTime, false);
+        },
 
 		// Gets a guid
 		getGuid: function() {
