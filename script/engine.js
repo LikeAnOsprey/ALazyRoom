@@ -1,4 +1,5 @@
-(function() {
+(function () {
+    var LAZY_CONS = 10;
 	var Engine = window.Engine = {
 
 		SITE_URL: encodeURIComponent("http://adarkroom.doublespeakgames.com"),
@@ -6,7 +7,7 @@
 		MAX_STORE: 99999999999999,
 		SAVE_DISPLAY: 30 * 1000,
         GAME_OVER: false,
-        LAZY_CONS: 10,
+        
 
 		//object event types
 		topics: {},
