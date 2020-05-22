@@ -137,7 +137,12 @@ var Outside = {
 		if(Engine._debug) {
 			this._GATHER_DELAY = 0;
 			this._TRAPS_DELAY = 0;
-		}
+        }
+
+        if (Engine.options.lazyTime) {
+            this._GATHER_DELAY = 6;
+            this._TRAPS_DELAY = 9;
+        }        
 		
 		// Create the outside tab
 		this.tab = Header.addLocation(_("A Silent Forest"), "outside", Outside);

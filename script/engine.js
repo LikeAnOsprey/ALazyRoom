@@ -5,7 +5,8 @@
 		VERSION: 1.3,
 		MAX_STORE: 99999999999999,
 		SAVE_DISPLAY: 30 * 1000,
-		GAME_OVER: false,
+        GAME_OVER: false,
+        LAZY_CONS: 10,
 
 		//object event types
 		topics: {},
@@ -76,7 +77,7 @@
 			log: false,
 			dropbox: false,
             doubleTime: false,
-            lazyTime: false
+            lazyTime: true
 		},
 
 		init: function(options) {
@@ -151,11 +152,7 @@
 				.text(_('hyper.'))
 				.click(Engine.confirmHyperMode)
 				.appendTo(menu);
-            $('<span>')
-                .addClass('lazy menuBtn')
-                .text(_('lazy.'))
-                .click(Engine.confirmLazyMode)
-                .appendTo(menu);
+           
 			$('<span>')
 				.addClass('menuBtn')
 				.text(_('restart.'))
@@ -559,43 +556,7 @@
 			$SM.set('config.hyperMode', Engine.options.doubleTime, false);
 		},
 
-        confirmLazyMode: function () {
-            if (!Engine.options.lazyTime) {
-                Events.startEvent({
-                    title: _('Go Lazy?'),
-                    scenes: {
-                        start: {
-                            text: [_('turning lazy mode speeds up the game to x10 speed. do you want to do that?')],
-                            buttons: {
-                                'yes': {
-                                    text: _('yes'),
-                                    nextScene: 'end',
-                                    onChoose: Engine.triggerLazyMode
-                                },
-                                'no': {
-                                    text: _('no'),
-                                    nextScene: 'end'
-                                }
-                            }
-                        }
-                    }
-                });
-            } else {
-                Engine.triggerLazyMode();
-            }
-        },
-
-        triggerLazyMode: function () {
-            Engine.options.lazyTime = !Engine.options.lazyTime;
-            if (Engine.options.lazyTime)
-                $('.lazy').text(_('classic.'));
-            else
-                $('.lazy').text(_('lazy.'));
-
-            $SM.set('config.lazyMode', Engine.options.lazyTime, false);
-        },
-
-		// Gets a guid
+        
 		getGuid: function() {
 			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 				var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
@@ -826,7 +787,7 @@
 		setInterval: function(callback, interval, skipDouble){
 			if( Engine.options.doubleTime && !skipDouble ){
 				Engine.log('Double time, cutting interval in half');
-				interval /= 2;
+				interval /= LAZY_CONS;
 			}
 
 			return setInterval(callback, interval);
@@ -837,13 +798,13 @@
 
 			if( Engine.options.doubleTime && !skipDouble ){
 				Engine.log('Double time, cutting timeout in half');
-				timeout /= 2;
+				timeout /= LAZY_CONS;
 			}
 
 			return setTimeout(callback, timeout);
 
-		}
-
+        }
+        
 	};
 
 	function eventNullifier(e) {

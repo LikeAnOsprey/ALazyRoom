@@ -11,7 +11,24 @@ var Room = {
 	
 	buttons:{},
 	
-	Craftables: {
+    Craftables: {
+
+        'testItem': {
+            name: _('sling'),
+            button: null,
+            maximum: 1,
+            availableMsg: _('builder says she can make a sling'),
+            buildMsg: _('sling to test slinging slingable things to sling'),
+            maxMsg: _("can only carry one sling"),
+            type: 'weapon',
+            cost: function () {
+                var n = $SM.get('game.buildings["sling"]', true);
+                return {
+                    'wood': 5
+                };
+            }
+        },
+
 		'trap': {
 			name: _('trap'),
 			button: null,
@@ -469,13 +486,20 @@ var Room = {
 			this._BUILDER_STATE_DELAY = 5000;
 			this._STOKE_COOLDOWN = 0;
 			this._NEED_WOOD_DELAY = 5000;
-		}
+        }
+        //// a lazy option 
+        //if (Engine.options.lazyTime) {
+        //    this._ROOM_WARM_DELAY = 10000;
+        //    this._BUILDER_STATE_DELAY = 10000;
+        //    this._STOKE_COOLDOWN = 2;
+        //    this._NEED_WOOD_DELAY = 10000;
+        //}
 		
 		if(typeof $SM.get('features.location.room') == 'undefined') {
 			$SM.set('features.location.room', true);
 			$SM.set('game.builder.level', -1);
 		}
-		
+
 		// If this is the first time playing, the fire is dead and it's freezing. 
 		// Otherwise grab past save state temp and fire level.
 		$SM.set('game.temperature', $SM.get('game.temperature.value')===undefined?this.TempEnum.Freezing:$SM.get('game.temperature'));

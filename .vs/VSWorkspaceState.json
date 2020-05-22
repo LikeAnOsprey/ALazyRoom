@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\script"
+    "\\css",
+    "\\lib",
+    "\\script",
+    "\\tools"
   ],
-  "SelectedNode": "\\script\\engine.js",
+  "SelectedNode": "\\tools\\po2js.py",
   "PreviewInSolutionExplorer": false
 }

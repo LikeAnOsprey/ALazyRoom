@@ -1,3 +1,4 @@
+
 var Button = {
 	Button: function(options) {
 		if(typeof options.cooldown == 'number') {
@@ -66,7 +67,8 @@ var Button = {
 		return false;
 	},
 
-	cooldown: function(btn, option) {
+    cooldown: function (btn, option) {
+        var LAZY_CONS = 10;
 		var cd = btn.data("cooldown");
 		var id = 'cooldown.'+ btn.attr('id');
 		if(cd > 0) {
@@ -99,7 +101,7 @@ var Button = {
 			}
 			var time = start;
 			if (Engine.options.doubleTime){
-				time /= 2;
+				time /= LAZY_CONS;
 			}
 			$('div.cooldown', btn).width(left * 100 +"%").animate({width: '0%'}, time * 1000, 'linear', function() {
 				Button.clearCooldown(btn, true);
