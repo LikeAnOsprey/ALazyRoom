@@ -1,4 +1,4 @@
-
+var LAZY_CONS = 10;
 var Button = {
 	Button: function(options) {
 		if(typeof options.cooldown == 'number') {
@@ -68,7 +68,7 @@ var Button = {
 	},
 
     cooldown: function (btn, option) {
-        var LAZY_CONS = 10;
+        
 		var cd = btn.data("cooldown");
 		var id = 'cooldown.'+ btn.attr('id');
 		if(cd > 0) {
