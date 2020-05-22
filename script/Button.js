@@ -1,4 +1,4 @@
-var LAZY_CONS = 10;
+var LAZY_CONS = 2;
 var Button = {
 	Button: function(options) {
 		if(typeof options.cooldown == 'number') {

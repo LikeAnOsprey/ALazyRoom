@@ -1,5 +1,5 @@
 (function () {
-    var LAZY_CONS = 10;
+    var LAZY_CONS = 2;
 	var Engine = window.Engine = {
 
 		SITE_URL: encodeURIComponent("http://adarkroom.doublespeakgames.com"),
@@ -222,7 +222,7 @@
 			}
 
 			if($SM.get('config.hyperMode', true)){
-					Engine.triggerHyperMode();
+					Engine.toggleHyperMode();
 			}
 
 			Engine.saveLanguage();
@@ -521,18 +521,32 @@
 			}
 		},
 
+        setNewSpeed: function () {
+            userInput = prompt('Select a new speed multiplier','2');
+            if (userInput < 1) {
+                alert('Cannot enter 0 or negative numbers')
+            }
+            // use parseInt to convert
+            else {                
+                LAZY_CONS = parseInt(userInput);
+            }
+            
+        },
+
+
 		confirmHyperMode: function(){
 			if (!Engine.options.doubleTime) {
 				Events.startEvent({
 					title: _('Go Hyper?'),
 					scenes: {
 						start: {
-							text: [_('turning hyper mode speeds up the game to x2 speed. do you want to do that?')],
+							text: [_('turning hyper mode speeds up the game to a variable speed. do you want to do that?')],
 							buttons: {
 								'yes': {
 									text: _('yes'),
 									nextScene: 'end',
-									onChoose: Engine.triggerHyperMode
+                                    onChoose: Engine.setNewSpeed(),
+                                    onChoose:Engine.toggleHyperMode
 								},
 								'no': {
 									text: _('no'),
@@ -543,18 +557,20 @@
 					}
 				});
 			} else {
-				Engine.triggerHyperMode();
+				Engine.toggleHyperMode();
 			}
 		},
 
-		triggerHyperMode: function() {
+		toggleHyperMode: function() {
 			Engine.options.doubleTime = !Engine.options.doubleTime;
-			if(Engine.options.doubleTime)
-				$('.hyper').text(_('classic.'));
-			else
-				$('.hyper').text(_('hyper.'));
-
-			$SM.set('config.hyperMode', Engine.options.doubleTime, false);
+            if (Engine.options.doubleTime)
+                $('.hyper').text(_('classic.'));
+            else {
+                // reset game speed to normal
+                LAZY_CONS = 1;
+                $('.hyper').text(_('hyper.'));
+            }                
+            $SM.set('config.hyperMode', Engine.options.doubleTime, false);            
 		},
 
         
