@@ -101,7 +101,7 @@ var Button = {
 			}
 			var time = start;
 			if (Engine.options.doubleTime){
-				time /= LAZY_CONS;
+				time /= Button.LAZY_CONS;
 			}
 			$('div.cooldown', btn).width(left * 100 +"%").animate({width: '0%'}, time * 1000, 'linear', function() {
 				Button.clearCooldown(btn, true);

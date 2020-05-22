@@ -488,12 +488,12 @@ var Room = {
 			this._NEED_WOOD_DELAY = 5000;
         }
         //// a lazy option 
-        //if (Engine.options.lazyTime) {
-        //    this._ROOM_WARM_DELAY = 10000;
-        //    this._BUILDER_STATE_DELAY = 10000;
-        //    this._STOKE_COOLDOWN = 2;
-        //    this._NEED_WOOD_DELAY = 10000;
-        //}
+        if (Engine.options.doubleTime) {
+            this._ROOM_WARM_DELAY = 10000/Engine.;
+            this._BUILDER_STATE_DELAY = 10000;
+            this._STOKE_COOLDOWN = 10;
+            this._NEED_WOOD_DELAY = 10000;
+        }
 		
 		if(typeof $SM.get('features.location.room') == 'undefined') {
 			$SM.set('features.location.room', true);

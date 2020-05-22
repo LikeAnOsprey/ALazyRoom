@@ -1,5 +1,5 @@
-(function () {
-    var LAZY_CONS = 2;
+var LAZY_CONS = 2;
+(function () {    
 	var Engine = window.Engine = {
 
 		SITE_URL: encodeURIComponent("http://adarkroom.doublespeakgames.com"),
@@ -522,12 +522,13 @@
 		},
 
         setNewSpeed: function () {
-            userInput = prompt('Select a new speed multiplier','2');
+            userInput = prompt('Select a new speed multiplier. Extremely high speeds may cause instability.','2');
             if (userInput < 1) {
                 alert('Cannot enter 0 or negative numbers')
-            }
+            }           
             // use parseInt to convert
             else {                
+                Button.LAZY_CONS = parseInt(userInput);
                 LAZY_CONS = parseInt(userInput);
             }
             
@@ -544,8 +545,7 @@
 							buttons: {
 								'yes': {
 									text: _('yes'),
-									nextScene: 'end',
-                                    onChoose: Engine.setNewSpeed(),
+									nextScene: 'end',                                    
                                     onChoose:Engine.toggleHyperMode
 								},
 								'no': {
@@ -563,10 +563,13 @@
 
 		toggleHyperMode: function() {
 			Engine.options.doubleTime = !Engine.options.doubleTime;
-            if (Engine.options.doubleTime)
+            if (Engine.options.doubleTime) {
+                Engine.setNewSpeed();
                 $('.hyper').text(_('classic.'));
+            }
             else {
                 // reset game speed to normal
+                Button.LAZY_CONS = 1;
                 LAZY_CONS = 1;
                 $('.hyper').text(_('hyper.'));
             }                
