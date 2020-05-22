@@ -470,7 +470,6 @@ var Room = {
 			this._STOKE_COOLDOWN = 0;
 			this._NEED_WOOD_DELAY = 5000;
 		}
-		
 		if(typeof $SM.get('features.location.room') == 'undefined') {
 			$SM.set('features.location.room', true);
 			$SM.set('game.builder.level', -1);
