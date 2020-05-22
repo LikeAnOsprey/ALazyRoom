@@ -1,33 +1,34 @@
 /**
  * Module that registers the simple room functionality
  */
+
 var Room = {
 	// times in (minutes * seconds * milliseconds)
 	_FIRE_COOL_DELAY: 5 * 60 * 1000, // time after a stoke before the fire cools
-	_ROOM_WARM_DELAY: 30 * 1000, // time between room temperature updates
-	_BUILDER_STATE_DELAY: 0.5 * 60 * 1000, // time between builder state updates
-	_STOKE_COOLDOWN: 10, // cooldown to stoke the fire
-	_NEED_WOOD_DELAY: 15 * 1000, // from when the stranger shows up, to when you need wood
+    _ROOM_WARM_DELAY: 30 * 1000, // time between room temperature updates
+    _BUILDER_STATE_DELAY: 0.5 * 60 * 1000 /*/ Engine.LAZY_CONS*/, // time between builder state updates
+    _STOKE_COOLDOWN: 10 /*/ Engine.LAZY_CONS*/, // cooldown to stoke the fire
+    _NEED_WOOD_DELAY: 15 * 1000, // from when the stranger shows up, to when you need wood
 	
 	buttons:{},
 	
     Craftables: {
 
-        'testItem': {
-            name: _('sling'),
-            button: null,
-            maximum: 1,
-            availableMsg: _('builder says she can make a sling'),
-            buildMsg: _('sling to test slinging slingable things to sling'),
-            maxMsg: _("can only carry one sling"),
-            type: 'weapon',
-            cost: function () {
-                var n = $SM.get('game.buildings["sling"]', true);
-                return {
-                    'wood': 5
-                };
-            }
-        },
+        //'testItem': {
+        //    name: _('sling'),
+        //    button: null,
+        //    maximum: 1,
+        //    availableMsg: _('builder says she can make a sling'),
+        //    buildMsg: _('sling to test slinging slingable things to sling'),
+        //    maxMsg: _("can only carry one sling"),
+        //    type: 'weapon',
+        //    cost: function () {
+        //        var n = $SM.get('game.buildings["sling"]', true);
+        //        return {
+        //            'wood': 5
+        //        };
+        //    }
+        //},
 
 		'trap': {
 			name: _('trap'),
@@ -488,12 +489,12 @@ var Room = {
 			this._NEED_WOOD_DELAY = 5000;
         }
         //// a lazy option 
-        if (Engine.options.doubleTime) {
-            this._ROOM_WARM_DELAY = 10000/Engine.;
-            this._BUILDER_STATE_DELAY = 10000;
-            this._STOKE_COOLDOWN = 10;
-            this._NEED_WOOD_DELAY = 10000;
-        }
+        //if (Engine.options.doubleTime) {
+        //    this._ROOM_WARM_DELAY = 10000;
+        //    this._BUILDER_STATE_DELAY = 10000;
+        //    this._STOKE_COOLDOWN = 10;
+        //    this._NEED_WOOD_DELAY = 10000;
+        //}
 		
 		if(typeof $SM.get('features.location.room') == 'undefined') {
 			$SM.set('features.location.room', true);

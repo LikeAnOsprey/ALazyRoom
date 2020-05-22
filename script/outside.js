@@ -4,9 +4,9 @@
 var Outside = {
 	name: _("Outside"),
 	
-	_STORES_OFFSET: 0,
-	_GATHER_DELAY: 60,
-	_TRAPS_DELAY: 90,
+    _STORES_OFFSET: 0,
+    _GATHER_DELAY: 60 /*/ Engine.LAZY_CONS*/,
+    _TRAPS_DELAY: 90 /*/ Engine.LAZY_CONS*/,
 	_POP_DELAY: [0.5, 3],
 	_HUT_ROOM: 4,
 	

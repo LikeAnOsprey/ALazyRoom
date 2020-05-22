@@ -78,7 +78,7 @@ var LAZY_CONS = 2;
 			log: false,
 			dropbox: false,
             doubleTime: false,
-            lazyTime: true
+            //lazyTime: true
 		},
 
 		init: function(options) {
@@ -527,7 +527,7 @@ var LAZY_CONS = 2;
                 alert('Cannot enter 0 or negative numbers')
             }           
             // use parseInt to convert
-            else {                
+            else {                                
                 Button.LAZY_CONS = parseInt(userInput);
                 LAZY_CONS = parseInt(userInput);
             }
