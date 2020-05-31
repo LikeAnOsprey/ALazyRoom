@@ -14,21 +14,6 @@ var Room = {
 	
     Craftables: {
 
-        //'testItem': {
-        //    name: _('sling'),
-        //    button: null,
-        //    maximum: 1,
-        //    availableMsg: _('builder says she can make a sling'),
-        //    buildMsg: _('sling to test slinging slingable things to sling'),
-        //    maxMsg: _("can only carry one sling"),
-        //    type: 'weapon',
-        //    cost: function () {
-        //        var n = $SM.get('game.buildings["sling"]', true);
-        //        return {
-        //            'wood': 5
-        //        };
-        //    }
-        //},
 
 		'trap': {
 			name: _('trap'),
@@ -1005,7 +990,7 @@ var Room = {
 		for(var k in cost) {
 			var have = $SM.get('stores["'+k+'"]', true);
 			if(have < cost[k]) {
-				Notifications.notify(Room, _("not enough "+k));
+                Notifications.notify(Room, _("not enough " + k));
 				return false;
 			} else {
 				storeMod[k] = have - cost[k];
@@ -1124,7 +1109,20 @@ var Room = {
 				}
 				if(max && !craftable.button.hasClass('disabled')) {
 					Notifications.notify(Room, craftable.maxMsg);
-				}
+                }
+                var canAfford = true;
+                for (var k in cost) {
+                    var have = $SM.get('stores["' + k + '"]', true);
+                    if (have < cost[k] && !max) {
+                        canAfford = false;
+                    }
+                }
+                if (!canAfford) {
+                    craftable.button.css("color", "red");
+                }
+                else {
+                    craftable.button.css("color", "black");
+                }
 			}
 			if(max) {
 				Button.setDisabled(craftable.button, true);
@@ -1191,7 +1189,8 @@ var Room = {
 			Room.updateBuildButtons();
 		} else if(e.category == 'income'){
 			Room.updateStoresView();
-			Room.updateIncomeView();
+            Room.updateIncomeView();
+            Room.updateBuildButtons();
 		} else if(e.stateName.indexOf('game.buildings') === 0){
 			Room.updateBuildButtons();
 		}
